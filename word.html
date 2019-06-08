@@ -1,0 +1,356 @@
+﻿<html>
+	<head>
+		<title>Shado documents processor</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="../Main_scripts/shado_JS_framework.js"></script>
+<link rel="icon" type="image/ico" href="Shado.ico">
+<link rel="stylesheet" type="text/css" href="word.css">
+<link rel="stylesheet" type="text/css" href="switch.css">
+<style type="text/css" media="print">
+.no-print {
+	display: none;
+}
+.document	{
+	border: 0;
+	margin: 0;
+}
+</style>
+<script language="JavaScript" src="word.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script language="JavaScript" src="word_jQuery.js"></script>
+	</head>
+	<body>
+		<div class="toolbar no-print">
+			<div>
+				<input title="document's title" type="text" id="title" value="doc1" OnBlur="document.querySelector('title').innerHTML = this.value;"/>
+			</div>
+			<div class="logo">
+				<span class="sub_logo" style="color: rgb(34,177,76);">Sh</span><span class="sub_logo" style="color: rgb(255,242,0);">ad</span><span class="sub_logo" style="color: rgb(34,177,76);">o</span><span class="sub_logo" style="color: rgb(255,242,0);">.com</span>
+			</div>
+			<ul class="menu">
+				<li class="sub_menu" OnMouseOver="dropMenu('file');" OnMouseOut="hideDropMenu('file');">File</li>
+				<li class="sub_menu" OnMouseOver="dropMenu('edit');" OnMouseOut="hideDropMenu('edit');">Edit</li>
+				<li class="sub_menu" OnMouseOver="dropMenu('format');" OnMouseOut="hideDropMenu('format');">Format</li>
+				<li class="sub_menu" OnMouseOver="dropMenu('equation');" OnMouseOut="hideDropMenu('equation');">Equation</li>
+				<li class="sub_menu" OnMouseOver="dropMenu('command_prompt');" OnMouseOut="hideDropMenu('command_prompt');">Command</li>
+				<li class="sub_menu" OnMouseOver="dropMenu('templates');" OnMouseOut="hideDropMenu('templates');">Templates</li>
+				<div id="file" style="visibility: hidden;" OnMouseOver="dropMenu('file');" OnMouseOut="hideDropMenu('file');">
+					<div title="New document" OnClick="window.close(); window.open('word.html')">
+						<img src="images/new.png" width="20" height="20" />&nbsp; New &nbsp; &nbsp; (Ctrl + N)
+					</div>
+					<div title="Save current changes" style="color: lightgray;">
+						<img src="images/save.png" width="20" height="20" />&nbsp; Save &nbsp; &nbsp;(Ctrl + S)
+					</div>
+					<div title="Download current document" id="download" OnMouseOver="dropMenu('download_side_menu');" OnMouseOut="hideDropMenu('download_side_menu');">
+						<img src="images/export.png" width="20" height="20" />&nbsp; Export as... >
+					</div>
+					<div title="Import file (choose file then click 'Import')"  >
+						<img src="images/import.png" width="20" height="20" /> &nbsp; Import &nbsp; <input type="file" id="fileToLoad" OnChange="loadFileAsText()"/>
+					</div>
+					<div title="Print this document" onClick="window.print();" >
+						<img src="images/print.png" width="20" height="20" /> &nbsp; Print &nbsp; &nbsp;(Ctrl + P)
+					</div>
+					<div title="Change app settings" OnClick="document.getElementById('settings').style.display = 'block';">
+						<img src="images/settings.png" width="20" height="20" /> &nbsp; Settings &nbsp; &nbsp;
+					</div>
+				</div>
+				<div id="download_side_menu" OnMouseOver="dropMenu('file'); dropMenu('download_side_menu');" OnMouseOut="hideDropMenu('download_side_menu');" style="visibility: hidden;">
+					<div title="download as PDF" style="color: lightgray;" >
+						<img src="images/pdf.png" width="20" height="20" /> &nbsp; Adobe file reader (.pdf)
+					</div>
+					<div title="download as docx" style="color: lightgray;">
+						<img src="images/word.png" width="20" height="20" />&nbsp; Microsoft Office Word (2007-2016) (.docx)
+					</div>
+					<div title="download as txt" onclick="saveTextAsFile()">
+						<img src="https://www.iconshock.com/image/Vista/General/notepad/" width="20" height="20" />&nbsp; Plein text file (.txt)
+					</div>
+					<div title="download as html file" onclick="document.getElementById('title').value = document.getElementById('title').value + '\.html'; saveTextAsFile();">
+						<img src="images/html.png" width="20" height="20" />&nbsp; HTML file (.html)
+					</div>
+				</div>
+				<div id="edit" style="visibility: hidden;" OnMouseOver="dropMenu('edit');" OnMouseOut="hideDropMenu('edit');">
+					<div title="Copy" OnClick="copyText();">
+						<img src="images/copy.png" width="20" height="20" />&nbsp; Copy content &nbsp; (Ctrl + C)
+					</div>
+					<div title="Find something and replace it" OnClick="document.getElementById('replaceAlert').style.display = 'block';">
+						<img src="images/find & replace.png" width="20" height="20" />&nbsp; Find and Replace &nbsp; (Ctrl + H)
+					</div>
+				</div>
+				<div id="format" style="visibility: hidden;" OnMouseOver="dropMenu('format');" OnMouseOut="hideDropMenu('format');">
+					<div title="Change document's background (change the color then click on 'Change background')">
+						<img src="images/colors.png" width="20" height="20" />&nbsp; Change background
+						<input type="color" id="bgColor" OnChange="changebg(this.value)">&nbsp; &nbsp;
+					</div>
+					<div title="Add an image as a background to your document">
+						<img src="images/photos.png" width="20" height="20" />&nbsp;
+						<input type="file" id="fileUpload" OnChange="imagebg();">
+					</div>
+					<div title="Add image to the document" OnClick=";">
+						<img src="images/preferences-desktop-theme.png" width="20" height="20" />&nbsp;
+						<input type="file" id="importImage">
+					</div>
+				</div>
+				<div id="equation" style="visibility: hidden;" OnMouseOver="dropMenu('equation');" OnMouseOut="hideDropMenu('equation');">
+					<div title="Sum" OnClick="autoCalculate();">
+						<img src="images/calculator.png" width="20" height="20" />&nbsp; <button class="hidden">Auto calculate</button>
+					</div>
+					<div title="Calculate logarithm" OnClick="autoCalculate();">
+						<b>log</b><button class="hidden">logarithm (log(base, number))</button>
+					</div>
+					<div title="raise a to the power of b" OnClick="power();">
+						<b>a<sup>b</sup></b>&nbsp; <button class="hidden">power (syntax: a^b)</button>
+					</div>
+					<div title="detect if the number is prime" OnClick="detectPrime();">
+						<b>true/false</b>&nbsp; <button class="hidden">detect prime</button>
+					</div>
+				</div>
+				<div id="command_prompt" style="visibility: hidden;" OnMouseOver="dropMenu('command_prompt');" OnMouseOut="hideDropMenu('command_prompt');">
+					<div OnClick="changeAutoReplaceSettings();">
+						<img src="images/switch-on.png" id ="status_image" width="20" height="20" /><span title="Enable/disable auto replace" id="changeAutoReplaceStatus">&nbsp; Disable auto replace</span>
+					</div>
+					<div title="Show command prompt" OnClick="showCMD();">
+						<img src="images/cmd.png" width="20" height="20" />&nbsp; Show command line
+					</div>
+					<div title="Add google search" OnClick="toggleSearch();">
+						<img src="images/google.png" width="20" height="20" />&nbsp; Toggle Google search
+					</div>
+				</div>
+				<div id="templates" style="visibility: hidden;" OnMouseOver="dropMenu('templates');" OnMouseOut="hideDropMenu('templates');">
+					<div title="convert to HTML" OnClick="convertToHTML(); changeAutoReplaceSettings();">
+						<img src="images/tags.png" width="20" height="20" />&nbsp; Add HTML template
+					</div>
+				</div>
+			</ul>
+			<div class="style_tools" title="Change font family">
+				<!-- font family here -->
+				<select OnChange="changeFamily(this.value)">
+					<option value=""></option>
+					<option value="Agency FB">Agency FB</option>
+					<option value="Arial">Arial</option>
+					<option value="Batang">Batang</option>
+					<option value="Brush Script MT">Brush Script MT</option>
+					<option value="Calibri">Calibri</option>
+					<option value="Cambria">Cambria</option>
+					<option value="Comic Sans MS">Comic Sans MS</option>
+					<option value="Cooper Black">Cooper Black</option>
+					<option value="Edwardian Script ITC">Edwardian Script ITC</option>
+					<option value="Lucida Console">Lucida Console</option>
+					<option value="Times New Roman">Times New Roman</option>
+					<option value="Viner Hand ITC">Viner Hand ITC</option>
+					<option value="Wide Latin">Wide Latin</option>
+				</select>
+				<!-- font size here -->
+				<select OnChange="changeSize(this.value)" title="Change font size">
+					<option value=""></option>
+					<option value="8">8</option>
+					<option value="10">10</option>
+					<option value="12">12</option>
+					<option value="14">14</option>
+					<option value="16">16</option>
+					<option value="20">20</option>
+					<option value="26">26</option>
+					<option value="32">32</option>
+					<option value="48">48</option>
+					<option value="72">72</option>
+					<option value="100">100</option>
+					<option value="150">150</option>
+					<option value="200">200</option>
+				</select>
+				&nbsp; &nbsp; &nbsp; &nbsp;
+				<!-- font color here -->
+				A<input title="change color" type="color" id="styleColor" OnChange="changeColor(this.value);" />
+				&nbsp; &nbsp; &nbsp; &nbsp;
+				<!-- font style here -->
+				<div class="font_style" id="bold" OnClick="styleBold();" title="Bold">
+					<b>B</b>
+				</div>
+				<div class="font_style" id="italic" OnClick="styleItalic();" title="Italic">
+					<i>I</i>
+				</div>
+				<div class="font_style" id="underline" OnClick="styleUnderline();" title="Underline">
+					<u>U</u>
+				</div>
+				<div class="font_style" id="strike" OnClick="styleStrike();" title="Strikethrough">
+					<s>abc</s>
+				</div>
+				&nbsp; &nbsp; &nbsp; &nbsp;
+				<!-- text align here -->
+				<img title="Align right" src="images/right.png" width="20" height="20" OnClick="changeAlign('left');" style="transform: scaleX(-1);"/>
+				<img title="Align center" src="images/center.svg" width="20" height="20" OnClick="changeAlign('center');" />
+				<img title="Align left" src="images/right.png" width="20" height="20" OnClick="changeAlign('right');" />
+				<img title="Justify" src="images/justify.png" width="20" height="20" OnClick="changeAlign('justify');" />
+			</div>
+		</div>
+		<center oncontextmenu="showMenu(menu); return false;">
+			<div class="document" id="document" >
+				<textarea id="text" OnKeyUp="countWords(); replaceAll('text');"></textarea>
+			</div>
+		</center>
+		<!-- Context menu here -->
+		<script src="../Shado Context menu/shado_context_menu.js"></script>
+		<script>
+			let menu = new Menu([
+				[`<img src="images/copy.png" width="20" height="20"> Copy`, "copyText();"],
+				[`<img id="status2" src="images/switch-on.png" width="20" height="20"> Auto replace`, "changeAutoReplaceSettings(); document.getElementById('status2').src = document.getElementById('status_image').src"],
+				[`<img src="images/calculator.png" width="20" height="20"> Auto calculate`, "autoCalculate();"],
+								[`<img src="http://icons.iconarchive.com/icons/wwalczyszyn/iwindows/256/Paint-icon.png" width="20" height="20"> Shado paint`, "window.open('http://localhost/HTML/HTML%20Quick%20tests/drawing%20test.html');"],
+				[`<img src="images/settings.png" width="20" height="20"> Settings`, "document.getElementById('settings').style.display = 'block';"]
+			]);
+			menu.show();
+		</script>
+		<!-- cmd -->
+		<div id="command" class="no-print">
+			<textarea id="cmd" OnClick="this.value = '';" placeholder="Enter command here ..."></textarea>
+		</div>
+		<div class="doc_info no-print">
+			<div id="words"></div>
+			&nbsp; &nbsp;
+			<div id="char"></div>
+			&nbsp; &nbsp;
+			<div id="par"></div>
+			<div id="zoom_div">
+				Zoom: <!-- <input type="text" id="zoom" OnChange="zoom(this.value);" placeholder="%" /> -->
+				<select id="zoom" OnChange="zoom(this.value);">
+					<option value=""></option>
+					<option value="35">35%</option>
+					<option value="50">50%</option>
+					<option value="100">100%</option>
+					<option value="110">110%</option>
+					<option value="130">130%</option>
+					<option value="150">150%</option>
+					<option value="200">200%</option>
+					<option value="230">230%</option>
+					<option value="250">250%</option>
+					<option value="300">300%</option>
+				</select>
+			</div>
+		</div>
+		<div id="replaceAlert">
+			<div id="title_bar" OnMouseDown="changePosition();">
+				<div>
+					Find and replace
+				</div>
+				<div id="close_title_bar" OnClick="document.getElementById('replaceAlert').style.display = 'none';">
+					X
+				</div>
+			</div>
+			<div id="alert_body">
+				<table>
+					<tr>
+						<td>Find next :</td>
+						<td><input type="text" id="input_find" placeholder="What to find ..." OnKeyUp="replaceAll('input_find');"/></td>
+					</tr>
+					<tr>
+						<td style="color: white;">Space</td>
+					</tr>
+					<tr>
+						<td>Replace with :</td>
+						<td><input type="text" id="input_replace" placeholder="Replace with ..." OnKeyUp="replaceAll('input_replace');" /></td>
+					</tr>
+				</table>
+				<br />
+				<img src="images/switch.png" OnClick="reverse();" title="Reverse" id="reverser" />
+				<b><span id="result"></span></b>
+				<br />
+				<input type="button" value="Replace" OnClick="findReplace();" />
+			</div>
+		</div>
+		<div id="settings">
+			<div id="title_bar_settings"> <!--OnMouseDown="changePosition();"> -->
+				<div>
+					Shado Word Settings
+				</div>
+				<div id="close_title_bar_settings" OnClick="document.getElementById('settings').style.display = 'none';">
+					X
+				</div>
+			</div>
+			<div id="settings_body" >
+				<div id="tab">
+					<div onclick="getElement('general_settings').style.display = 'block'; getElement('page_settings').style.display = 'none'; getElement('equation_settings').style.display = 'none';" >General</div>
+					<div onclick="getElement('general_settings').style.display = 'none'; getElement('page_settings').style.display = 'block'; getElement('equation_settings').style.display = 'none';">Page</div>
+					<div onclick="getElement('general_settings').style.display = 'none'; getElement('page_settings').style.display = 'none'; getElement('equation_settings').style.display = 'block';">Equation</div>
+				</div>
+				<div id="core" style="display: inline">
+					<div id="general_settings">
+						<fieldset>
+							<legend><h3>General settings</h3></legend>
+							<table>
+								<tr>
+									<td>Autp replace:</td>
+									<td>
+										<label class="switch">
+											 <input OnClick="changeAutoReplaceSettings();" type="checkbox" id="myonoffswitch" checked />
+											 <span class="slider round"></span>
+										</label>
+									</td>
+								</tr>
+								<tr>
+									<td>Theme:</td>
+									<td> <!-- changeTheme(primeryColor, secondaryColor, menuTextColor) -->
+										<select OnChange="changeTheme(this.value)">
+											<option value="181, 230, 29">Shado classic</option>
+											<option value="34, 177, 76">Shado modern</option>
+											<option value="0, 162, 232">Shado Blue</option>
+											<option value="163, 73, 164">Shado purple</option>
+											<option value="0, 0, 0">Shado black</option>
+											<option value="46, 152, 255">Shado random</option>
+										</select>
+									</td>
+								</tr>
+							</table>
+						</fieldset>
+					</div>
+					<div id="page_settings" style="display: none;">
+						<fieldset>
+							<legend><h3>Page settings</h3></legend>
+							<table>
+								<tr>
+									<td>Page margins:</td>
+									<td>
+										<input name="margins" type="radio" OnClick="changeMargins(1.27, 1.27);" /> Narrow &nbsp; &nbsp;
+										<input name="margins" type="radio" OnClick="changeMargins(2.54, 3.18);" checked /> Normal &nbsp; &nbsp;
+										<input name="margins" type="radio" OnClick="changeMargins(2.54, 5.08);" /> Wide
+									</td>
+								</tr>
+								<tr>
+									<td>Layout:</td>
+									<td>
+										<input name="layout" type="radio" OnClick="changeLayout(8.5, 11);" checked/> Portrait &nbsp; &nbsp;
+										<input name="layout"type="radio" OnClick="changeLayout(11, 8.5);" /> Landscape &nbsp; &nbsp;
+									</td>
+								</tr>
+							</table>
+						</fieldset>
+					</div>
+					<div id="equation_settings" style="display: none;">
+						<fieldset>
+							<legend><h3>Equation settings</h3></legend>
+							<table>
+								<tr>
+									<td>Auto calculate round digits</td>
+									<td><input type="number" value="0-100" min="0" max="100" OnChange="chnageRoundingValue(this.value);" /></td>
+								</tr>
+								<tr>
+									<td>Auto calculate hot key</td>
+									<td><input type="text" id="mykey" style="width: 50;" value="Alt" OnClick="this.value = '';" disabled /></td>
+								</tr>
+								<tr>
+									<td>Angles type:</td>
+									<td>
+										<input name="ang" type="radio" OnClick="changeAnglesType('degrees');" checked /> Degrees &nbsp; &nbsp;
+										<input name="ang"type="radio" OnClick="changeAnglesType('radians');"  /> Radian &nbsp; &nbsp;
+									</td>
+								</tr>
+							</table>
+						</fieldset>
+					</div>
+				</div>
+				<br />
+				<input id="apply_btn_2" type="button" value="Apply" OnClick="document.getElementById('settings').style.display = 'none';" />
+			</div>
+		</div>
+		<iframe src="https://www.bing.com/" id="searchWindow">
+	</body>
+</html>

@@ -1,0 +1,1067 @@
+<html>	
+	<head>
+		<title>Document processor test</title>
+<script language="JavaScript">
+// Shado javascript frameware v1.0.5
+var version = " v1.0.5";
+var PI = Math.PI;
+var Pi = Math.PI;
+var angles;
+var e = Math.E;
+var copyRight = "&copy; Shado JS frameware" + version + " | All rights reserved 28/01/2018 5:20 PM 10002801201817247_745";
+var path = window.location.pathname;
+var filename = path.split("/").pop();
+
+function randomBetweenRange(max, min)	{
+	return Math.random() * (max - min) + min;
+}
+
+function root(num, power)	{
+	return Math.pow(num, 1 / power);
+}
+
+function radianToDegrees(rad)	{
+	return (rad * 180) / Math.PI;
+}
+
+function write(elementId, argument)	{
+	document.getElementById(elementId).innerHTML = argument;
+}
+
+function exp(base, exposant)	{
+	return Math.pow(base, exposant);
+}
+
+function square(base)	{
+	return Math.pow(base, 2);
+}
+
+function sin(ang)	{
+	if (angles == "degrees")	{
+		ang = (ang * Math.PI) / 180;
+	} else	{
+		angles = "radians";
+	};
+
+	return Math.sin(ang);
+}
+
+function cos(ang)	{
+	if (angles == "degrees")	{
+		ang = (ang * Math.PI) / 180;
+	} else	{
+		angles = "radians";
+	}
+
+	return Math.cos(ang);
+}
+
+function tan(ang)	{
+	if (angles == "degrees")	{
+		ang = (ang * Math.PI) / 180;
+	} else	{
+		angles = "radians";
+	}
+
+	return Math.tan(ang);
+}
+
+function log(base, number)	{
+	if (base == null)	{
+		base = 10;
+	}
+	return Math.log(number) / Math.log(base);
+}
+
+function ln(num)	{
+	return log(Math.E, num);
+}
+
+function getElement(id)	{
+	var re = "document.getElementById('" + id + "')";
+	return eval(re);
+}
+
+function zeros(a, b, c, i)	{
+	var zerosArray = [
+		(-b + (Math.sqrt(Math.pow(b, 2) - (4 * a * c)))) / (2 * a),
+		(-b - (Math.sqrt(Math.pow(b, 2) - (4 * a * c)))) / (2 * a)
+	];
+	if (i == null)	{
+		return zerosArray;
+	} else	{
+		return zerosArray[i];
+	}
+}
+
+function round(argument, digits)	{
+	return argument.toFixed(digits);
+}
+
+function randomColor()	{
+	var color = {
+		r: round(randomBetweenRange(0, 255)),
+		g: round(randomBetweenRange(0, 255)),
+		b: round(randomBetweenRange(0, 255))
+	};
+	var rgb = "rgb(" + color.r + "," + color.g + "," + color.b + ")";
+	return rgb;
+}
+
+function getElementsClass(theClass, action)	{
+	var re = "document.getElementsByClassName('" + theClass + "')";
+
+	for (let i = 0; i < re.length; i++)	{
+		eval(re + "[" + i + "]" + "." + action);
+	}
+
+}
+
+function primeNumbers(number)	{
+	var cond;
+	var conditionNumber = 0;
+
+	for (let i = 0; i <= 9; i++)	{
+		if (number % i != 0)	{
+			conditionNumber = conditionNumber;
+		} else	if (number % i == 0)	{
+			conditionNumber += 1;
+		}
+	}
+
+	if (conditionNumber > 2)	{
+		cond = false;
+	} else	{
+		cond = true;
+	}
+
+	return cond;
+}
+
+function detect(string, character)  {
+  var stringArray = string.split("");
+  numberOfCharacters = 0;
+
+  for (let i = 0; i < stringArray.length; i++)  {
+    if (stringArray[i] == character)  {
+      numberOfCharacters += 1;
+    }
+  }
+  return numberOfCharacters;
+}
+
+function sum(argument)  {
+  var argumentsArray = argument.split(",");
+  var sumresult = 0;
+
+  for (let i = 0; i < argumentsArray.length; i++) {
+    sumresult = sumresult + Number(argumentsArray[i]);
+  }
+
+  return sumresult;
+}
+
+function floor(number)	{
+	return Math.floor(number);
+}
+
+function clear(arrayname, numberOfElements)	{
+	if ((numberOfElements == null) || (numberOfElements == ""))	{
+		numberOfElements = arrayname.length;
+	}
+	for (let i = 0; i < numberOfElements; i++)	{
+		arrayname.pop();
+	}
+}
+
+function copy(argument)	{
+	var copyText = document.getElementById(argument);
+	copyText.select();
+	return document.execCommand("Copy");
+}
+log(copyRight);
+
+</script>
+<style type="text/css">
+body	{
+	margin: 0;
+	background-color: rgb(240,240,240);
+}
+.toolbar	{
+	width: 100%;
+	height: 200px;
+	background-color: rgba(181,230,29,.5);
+}
+.document	{
+	margin-left: 25%;
+	width: 8.5in;
+	height: 11in;
+	background-color: white;
+	border: solid 3px lightgray;
+}
+#text	{
+	width: 100%;
+	height: 100%;
+	padding-top: 2.54cm;
+	padding-bottom: 2.54cm;
+	padding-right: 3.18cm;
+	padding-left: 3.18cm;
+	border: 0;
+	font-family: "Times New Roman";
+	font-size: 14;
+}
+#title	{
+	position: relative;
+	font-size: 20px;
+	padding: 5px;
+	border: 0;
+	left: 30px;
+	top: 5px;
+}
+.menu li	{
+	display: inline;
+	padding: 5px;
+	font-family: "Arial";
+	position: relative;
+	top: 10px;
+	left: -10px;
+}
+.menu li:hover	{
+	background-color: black;
+	color: white;
+	border: solid black 1px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+.style_tools	{
+	width: 100%;
+	text-align: center;
+	position: relative;
+	top: -640px;
+}
+.style_tools select	{
+	font-size: 16;
+	height: 30px;
+}
+#file	{
+	border: solid black 1px;
+	height: 175px;
+	width: 355px;
+	background-color: white;
+	position: relative;
+	top: 10px;
+	left: -10px;
+	border-radius: 5px;
+	z-index: 2;
+	font-size: smaller;
+}
+#file div	{
+	list-style-type: none;
+	height: 15px;
+	width: 335px;
+	cursor: pointer;
+	font-family: "Arial";
+	padding: 10px;
+}
+#file div:hover	{
+	background-color: rgb(34,177,76);
+	color: white;
+}
+#download_side_menu	{
+	border: solid black 1px;
+	height: 140px;
+	width: 300px;
+	background-color: white;
+	position: relative;
+	top: -95px;
+	left: 345px;
+	border-radius: 5px;
+	z-index: 2;
+	font-size: smaller;
+}
+#download_side_menu div	{
+	list-style-type: none;
+	height: 15px;
+	width: 280px;
+	cursor: pointer;
+	font-family: "Arial";
+	padding: 10px;
+}
+#download_side_menu div:hover	{
+	background-color: rgb(34,177,76);
+	color: white;
+}
+#edit	{
+	border: solid black 1px;
+	height: 70px;
+	width: 220px;
+	background-color: white;
+	position: relative;
+	top: -310px;
+	left: 30px;
+	border-radius: 5px;
+	z-index: 2;
+	font-size: smaller;
+}
+#edit div	{
+	list-style-type: none;
+	height: 15px;
+	width: 200px;
+	cursor: pointer;
+	font-family: "Arial";
+	padding: 10px;
+}
+#edit div:hover	{
+	background-color: rgb(34,177,76);
+	color: white;
+}
+#format	{
+	border: solid black 1px;
+	height: 40px;
+	width: 200px;
+	background-color: white;
+	position: relative;
+	top: -380px;
+	left: 70px;
+	border-radius: 5px;
+	z-index: 2;
+	font-size: smaller;
+}
+#format div	{
+	list-style-type: none;
+	height: 20px;
+	width: 180px;
+	cursor: pointer;
+	font-family: "Arial";
+	padding: 10px;
+}
+#format div:hover	{
+	background-color: rgb(34,177,76);
+	color: white;
+}
+#equation	{
+	border: solid black 1px;
+	height: 160px;
+	width: 270px;
+	background-color: white;
+	position: relative;
+	top: -420px;
+	left: 135px;
+	border-radius: 5px;
+	z-index: 2;
+	font-size: smaller;
+}
+#equation div	{
+	list-style-type: none;
+	height: 20px;
+	width: 250px;
+	font-family: "Arial";
+	padding: 10px;
+}
+#equation div:hover	{
+	background-color: rgb(34,177,76);
+	color: white;
+}
+.hidden	{
+	background-color: transparent;
+	border: 0;
+	color: inherit;
+	cursor: pointer;
+}
+#command_prompt	{
+	border: solid black 1px;
+	height: 80px;
+	width: 190px;
+	background-color: white;
+	position: relative;
+	top: -585px;
+	left: 212px;
+	border-radius: 5px;
+	z-index: 2;
+	font-size: smaller;
+}
+#command_prompt div	{
+	list-style-type: none;
+	height: 20px;
+	width: 170px;
+	cursor: pointer;
+	font-family: "Arial";
+	padding: 10px;
+}
+#command_prompt div:hover	{
+	background-color: rgb(34,177,76);
+	color: white;
+}
+#templates	{
+	border: solid black 1px;
+	height: 40px;
+	width: 170px;
+	background-color: white;
+	position: relative;
+	top: -665px;
+	left: 300px;
+	border-radius: 5px;
+	z-index: 2;
+	font-size: smaller;
+}
+#templates div	{
+	list-style-type: none;
+	height: 20px;
+	width: 150px;
+	cursor: pointer;
+	font-family: "Arial";
+	padding: 10px;
+}
+#templates div:hover	{
+	background-color: rgb(34,177,76);
+	color: white;
+}
+.font_style	{
+	display: inline;
+	cursor: pointer;
+	padding: 10px;
+}
+#styleColor	{
+	border: 0;
+	background-color: transparent;
+	width: 20px;
+}
+#bgColor	{
+	border: 0;
+	background-color: transparent;
+	width: 20px;
+}
+.doc_info	{
+	background-color: rgba(181,230,29,.5);
+	height: 20px;
+	position: fixed;
+	margin-top: -338px;
+	font-family: "Arial";
+	padding: 15px;
+	width: 100%;
+	font-size: small;
+}
+
+.doc_info div	{
+	background-color: white;
+	display: inline;
+	padding: 5px;
+	border-radius: 5px;
+}
+#command	{
+	width: 200px;
+	height: 600px;
+	background-color: black;
+	position: fixed;
+	margin-top: -935px;
+	margin-left: 1700px;
+	visibility: hidden;
+	border-radius: 10px;
+}
+#cmd	{
+	width: 100%;
+	height:100%;
+	color: white;
+	background-color: transparent;
+	font-family: "Lucida Console";
+	padding: 10px;
+	border: 0;
+}
+#replaceAlert	{
+	width: 500px;
+	height: 225px;
+	background-color: white;
+	border: solid 3px;
+	border-color: rgb(34,177,76);
+	border-radius: 10px;
+	position: relative;
+	top: -900px;
+	left: 672px;
+	display: none;
+}
+#title_bar	{
+	background-color: rgb(34,177,76);
+	padding: 5px;
+	font-family: "Arial";
+	color: white;
+	font-weight: bold;
+}
+#title_bar div	{
+	display: inline;
+}
+#close_title_bar	{
+	background-color: red;
+	color: white;
+	font-family: "Arial";
+	font-weight: bold;
+	padding: 7px;
+	height: 100%;
+	position: relative;
+	left: 340px;
+	border-top-right-radius: 5px;
+	cursor: pointer;
+}
+#alert_body	{
+	padding: 20px;
+	font-family: "Arial";
+}
+#alert_body input[type=text]	{
+	width: 230px;
+    border-radius: 5px;
+    height: 30px;
+    border-width: 1px;
+    padding: 3px;
+}
+#alert_body input[type=button]	{
+    border-radius: 5px;
+	border: 0;
+	font-size: small;
+	color: white;
+	font-weight: bold;
+	background: rgb(34,177,76);
+    height: 30px;
+    border-width: 1px;
+    padding: 5px;
+	-webkit-transition: background .5s;
+}
+
+#alert_body input[type=button]:active	{
+	background: rgb(4,147,46);
+}
+</style>
+<style type="text/css" media="print">
+.no-print {
+	display: none;
+}
+.document	{
+	border: 0;
+	margin: 0;
+}
+</style>
+<script language="JavaScript">
+function changeAlign(arg)	{
+	document.getElementById("text").style.textAlign = arg;
+}
+function changeSize(arg)	{
+	document.getElementById("text").style.fontSize = arg;
+}
+function dropMenu(id)	{
+	document.getElementById(id).style.visibility = "visible";
+}
+function hideDropMenu(id)	{
+	document.getElementById(id).style.visibility = "hidden";
+}
+function changeFamily(arg)	{
+	document.getElementById("text").style.fontFamily = arg;
+}
+
+var italic = false;
+var bold = false;
+var underline = false;
+var strike = false;
+var autoReplace = true;
+
+function changeAutoReplaceSettings()	{
+	if (autoReplace == false)	{
+		autoReplace = true;
+		document.getElementById("changeAutoReplaceStatus").innerHTML = "&nbsp; Auto replace on";
+		document.getElementById("changeAutoReplaceStatus").title = "Auto replace enabled. Click to disabled it";
+		document.getElementById("status_image").src = "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/switch-on-icon.png";
+	} else if (autoReplace == true)	{
+		autoReplace = false;
+		document.getElementById("changeAutoReplaceStatus").innerHTML = "&nbsp; Auto replace off";
+		document.getElementById("changeAutoReplaceStatus").title = "Auto replace disabled. Click to enable it";
+		document.getElementById("status_image").src = "http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/switch-off-icon.png";
+	}
+}
+
+function styleBold()	{
+	if (bold == false)	{
+		document.getElementById("text").style.fontWeight = "bold";
+		bold = true;
+		document.getElementById("bold").style.backgroundColor = "rgb(34,177,76)";
+		document.getElementById("bold").style.color = "white";
+	} else	{
+		document.getElementById("text").style.fontWeight = "";
+		bold = false;
+		document.getElementById("bold").style.backgroundColor = "transparent";
+		document.getElementById("bold").style.color = "black";
+	}
+}
+
+function styleItalic()	{
+	if (italic == false)	{
+		document.getElementById("text").style.fontStyle = "italic";
+		italic = true;
+		document.getElementById("italic").style.backgroundColor = "rgb(34,177,76)";
+		document.getElementById("italic").style.color = "white";
+	} else	{
+		document.getElementById("text").style.fontStyle = "";
+		italic = false;
+		document.getElementById("italic").style.backgroundColor = "transparent";
+		document.getElementById("italic").style.color = "black";
+	}
+}
+
+function styleUnderline()	{
+	if (underline == false)	{
+		document.getElementById("text").style.textDecoration = "underline";
+		underline = true;
+		document.getElementById("underline").style.backgroundColor = "rgb(34,177,76)";
+		document.getElementById("strike").style.backgroundColor = "transparent";
+		document.getElementById("underline").style.color = "white";
+		document.getElementById("strike").style.color = "black";
+	} else	{
+		document.getElementById("text").style.textDecoration = "none";
+		underline = false;
+		document.getElementById("underline").style.backgroundColor = "transparent";
+		document.getElementById("underline").style.color = "black";
+	}
+}
+
+function styleStrike()	{
+	if (strike == false)	{
+		document.getElementById("text").style.textDecoration = "line-through";
+		strike = true;
+		document.getElementById("strike").style.backgroundColor = "rgb(34,177,76)";
+		document.getElementById("underline").style.backgroundColor = "transparent";
+		document.getElementById("strike").style.color = "white";
+		document.getElementById("underline").style.color = "black";
+	} else	{
+		document.getElementById("text").style.textDecoration = "none";
+		strike = false;
+		document.getElementById("strike").style.backgroundColor = "transparent";
+		document.getElementById("strike").style.color = "black";
+	}
+}
+
+function changeColor(thecolor)	{
+	document.getElementById("text").style.color = thecolor;
+}
+
+function autoCalculate()	{
+	var whatTosum = window.getSelection();
+	var str = whatTosum.toString();
+	var number = eval(str);
+	var newValue = document.getElementById("text").value + " = " + number;
+	document.getElementById("text").value = newValue;
+	console.log(str);
+}
+
+function calculateMyLog()	{
+	var whatToLog = document.getElementById("text").value;
+	var logArray = whatToLog.split("_");
+	for (let i = 0; i < logArray.length; i++)	{
+		if (logArray[i] == "e")	{
+			logArray[i] = Math.E;
+		}
+	}
+	var answer = Math.log(logArray[2]) / Math.log(logArray[1]);
+	var newValue = whatToLog + " = " + answer;
+	document.getElementById("text").value = newValue;
+	
+}
+
+function power()	{
+	var whatToLog = window.getSelection().toString();
+	var logArray = whatToLog.split("^");
+	for (let i = 0; i < logArray.length; i++)	{
+		if (logArray[i] == "e")	{
+			logArray[i] = Math.E;
+		}
+	}
+	var answer = Math.pow(logArray[0], logArray[1]);
+	var newValue = whatToLog + " = " + answer;
+	document.getElementById("text").value = newValue;
+	
+}
+
+function saveTextAsFile()
+{
+    var textToSave = document.getElementById("text").value;
+    var textToSaveAsBlob = new Blob([textToSave], {type:"text/plain"});
+    var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);
+    var fileNameToSaveAs = document.getElementById("title").value;
+
+    var downloadLink = document.createElement("a");
+    downloadLink.download = fileNameToSaveAs;
+    downloadLink.innerHTML = "Download File";
+    downloadLink.href = textToSaveAsURL;
+    downloadLink.onclick = destroyClickedElement;
+    downloadLink.style.display = "none";
+    document.body.appendChild(downloadLink);
+
+    downloadLink.click();
+}
+
+function destroyClickedElement(event)
+{
+    document.body.removeChild(event.target);
+}
+
+function loadFileAsText()
+{
+    var fileToLoad = document.getElementById("fileToLoad").files[0];
+
+    var fileReader = new FileReader();
+    fileReader.onload = function(fileLoadedEvent) 
+    {
+        var textFromFileLoaded = fileLoadedEvent.target.result;
+        document.getElementById("text").value = textFromFileLoaded;
+    };
+    fileReader.readAsText(fileToLoad, "UTF-8");
+}
+
+function copyText()	{
+	var copyText = document.getElementById("text");
+	copyText.select();
+	return document.execCommand("Copy");
+}
+
+function detectPrime()	{
+	var number = window.getSelection().toString();
+	var cond;
+	var conditionNumber = 0;
+
+	for (let i = 0; i <= 9; i++)	{
+		if (i == number)	{
+			continue;
+		};
+		
+		if (number % i != 0)	{
+			conditionNumber = conditionNumber;
+		} else	if (number % i == 0)	{
+			conditionNumber += 1;
+		}
+	}
+
+	if (conditionNumber > 1)	{
+		cond = false;
+	} else	{
+		cond = true;
+	}
+
+	document.getElementById("text").value = number + " " + cond;
+}
+
+function countWords()	{
+	var data = document.getElementById("text").value;
+	var dataArray = data.split(" ");
+	var dataArray2 = data.split("");
+	var paragraphs = data.split("\n");
+	document.getElementById("words").innerHTML = "<b>" + dataArray.length + "</b> words";
+	document.getElementById("char").innerHTML = "<b>" + dataArray2.length + "</b> characters";
+	document.getElementById("par").innerHTML = "<b>" + paragraphs.length + "</b> paragraphs";
+}
+
+cmd_visibility = false;
+
+function showCMD()	{
+	if (cmd_visibility == false)	{
+		document.getElementById("command").style.visibility = "visible";
+		cmd_visibility = true;
+	} else {
+		document.getElementById("command").style.visibility = "hidden";
+		cmd_visibility = false;
+	}
+}
+
+var time = 5;
+
+window.addEventListener("keypress", function(event)	{
+	var value1;
+	if (event.keyCode == 13)	{
+		var exe = document.getElementById("cmd");
+		if (exe.value == "exit")	{
+			window.close();
+		} else if (exe.value == "help")	{
+			value1 = "This command line uses JavaScript. You can enter any javascript command to be executed. This cmd also supports Shado frameware v1.0.5\n\n\n Here is a list of commands:\n\n exit (close current window)\n\n log(x) (console.log(x))\n\n write(id, arg) (document.getElementById(id).innerHTML = arg)\n\n";
+			time = 15;
+		} else if (exe.value == "expand")	{
+			document.getElementById("cmd").style.width = "500px";
+			document.getElementById("command").style.width = "500px";
+			document.getElementById("command").style.marginLeft = "1400px";
+			value1 = "command line expanded by 500px \n\n";
+		} else	{
+			eval(exe.value);
+			value1 = exe.value + "\n\n command has been executed successfully!\n\n Please wait before entering another command ...\n\n command will clear after\n\n ";
+		}
+		var myvar = setInterval(function()	{
+						time -= 1;
+						exe.value = value1 + "\n" +time + " seconds";
+					}, 1000);
+					
+		setTimeout(function()	{
+			clearInterval(myvar);
+			exe.value = '';
+			time = 5;
+		},time * 1000)
+	};
+});
+
+window.addEventListener("keypress", function(event)	{
+	if (event.keyCode == 87)	{
+		window.alert("You pressed Alt");
+	}
+}, false);
+
+function replaceAll(myid)	{
+	if (autoReplace == true)	{
+		replaceSomething('delta', 'Δ', myid);
+		replaceSomething('-->', '→', myid);
+		replaceSomething('==>', '⇒', myid);
+		replaceSomething('<-->', '⇋', myid);
+		replaceSomething('beta', 'β', myid);
+		replaceSomething('alpha', 'α', myid);
+		replaceSomething('teta', 'θ', myid);
+		replaceSomething('sigma', 'σ', myid);
+		replaceSomething('micro', 'μ', myid);
+		replaceSomething('pi', 'π', myid);
+		replaceSomething('Pi', 'π', myid);
+		replaceSomething(':\)', '☺', myid);
+		replaceSomething('<3', '❤', myid);
+		replaceSomething(':\(', '☹', myid);
+		replaceSomething('rho', 'ρ', myid);
+		replaceSomething('celsius', '°C', myid);
+		replaceSomething('xD', '😂', myid);
+		replaceSomething(':|', '😐', myid);
+		replaceSomething(':p', '😛', myid);
+		replaceSomething(';\)', '😉', myid);
+		replaceSomething('integral', '∫', myid);
+	}
+}
+
+function replaceSomething(replace, replaceWith, id)	{
+	var val = document.getElementById(id).value;
+	var valArray = val.split(" ");
+	for (let i = 0; i < valArray.length; i++)	{
+		if (valArray[i] == replace)	{
+			valArray[i] = replaceWith;
+		}
+	}
+	document.getElementById(id).value = valArray.join(" ");
+}
+
+function changebg(color)	{
+	document.getElementById("text").style.backgroundColor = color;
+}
+
+function findReplace()	{
+	var whatToreplace = document.getElementById("text").value;
+	var find = document.getElementById("input_find").value;
+	var replacWith = document.getElementById("input_replace").value;
+	var spliter;
+	var number = 0;
+	if (find.length > 1)	{
+		spliter = " ";
+	} else	{
+		spliter = "";
+	}
+	var whatToreplaceArray = whatToreplace.split(spliter);
+	for (let i = 0; i < whatToreplaceArray.length; i++)	{
+		if (whatToreplaceArray[i] == find)	{
+			whatToreplaceArray[i] = replacWith;
+			number += 1;
+		}
+	}
+	
+	if (number == 0)	{
+		document.getElementById("result").innerHTML = "Replace faild! " + number + " result found.";
+		document.getElementById("result").style.color = "red";
+	} else	{
+		document.getElementById("result").innerHTML = "Replace successful! " + number + " results found.";
+		document.getElementById("result").style.color = "green";
+	}
+	document.getElementById("text").value = whatToreplaceArray.join(spliter);
+}
+</script>
+	</head>
+	<body>
+		<div class="toolbar no-print">
+			<div>
+				<input title="document's title" type="text" id="title" value="doc1" OnBlur="document.querySelector('title').innerHTML = this.value;"/>
+			</div>
+			<ul class="menu">
+				<li OnMouseOver="dropMenu('file');" OnMouseOut="hideDropMenu('file');">File</li>
+				<li OnMouseOver="dropMenu('edit');" OnMouseOut="hideDropMenu('edit');">Edit</li>
+				<li OnMouseOver="dropMenu('format');" OnMouseOut="hideDropMenu('format');">Format</li>
+				<li OnMouseOver="dropMenu('equation');" OnMouseOut="hideDropMenu('equation');">Equation</li>
+				<li OnMouseOver="dropMenu('command_prompt');" OnMouseOut="hideDropMenu('command_prompt');">Command</li>
+				<li OnMouseOver="dropMenu('templates');" OnMouseOut="hideDropMenu('templates');">Templates</li>
+				<div id="file" style="visibility: hidden;" OnMouseOver="dropMenu('file');" OnMouseOut="hideDropMenu('file');">
+					<div title="New document" OnClick="window.close(); window.open('word.html')">
+						<img src="http://repository.wustl.edu/assets/default-c6018ff301250c55bcc663293e1816c7daece4159cbc93fc03d9b35dbc3db30d.png" width="20" height="20" />&nbsp; New &nbsp; &nbsp; (Ctrl + N)
+					</div>
+					<div title="Save current changes" style="color: lightgray;">
+						<img src="http://files.softicons.com/download/application-icons/toolbar-icons-by-gentleface/png/512/save.png" width="20" height="20" />&nbsp; Save &nbsp; &nbsp;(Ctrl + S)
+					</div>
+					<div title="Download current document" id="download" OnMouseOver="dropMenu('download_side_menu');" OnMouseOut="hideDropMenu('download_side_menu');">
+						<img src="http://www.iconhot.com/icon/png/rrze/720/export-3.png" width="20" height="20" />&nbsp; Export as... >
+					</div>
+					<div title="Import file (choose file then click 'Import')"  >
+						<img src="http://icongal.com/gallery/image/93408/move_file_arrow_import_left_document.png" width="20" height="20" /> &nbsp; Import &nbsp; <input type="file" id="fileToLoad" OnChange="loadFileAsText()"/>
+					</div>	
+					<div title="Print this document" onClick="window.print();" >
+						<img src="http://icons.iconarchive.com/icons/iconshow/hardware/256/Printer-icon.png" width="20" height="20" /> &nbsp; Print &nbsp; &nbsp;(Ctrl + P)
+					</div>				
+				</div>
+				<div id="download_side_menu" OnMouseOver="dropMenu('file'); dropMenu('download_side_menu');" OnMouseOut="hideDropMenu('download_side_menu');" style="visibility: hidden;">
+					<div title="download as PDF" style="color: lightgray;" >
+						<img src="https://cdn1.iconfinder.com/data/icons/adobe-acrobat-pdf/154/adobe-acrobat-pdf-file-512.png" width="20" height="20" /> &nbsp; Adobe file reader (.pdf)
+					</div>
+					<div title="download as docx" style="color: lightgray;">
+						<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Word_2013_file_icon.svg/2000px-Word_2013_file_icon.svg.png" width="20" height="20" />&nbsp; Microsoft Office Word (2007-2016) (.docx)
+					</div>
+					<div title="download as txt" onclick="saveTextAsFile()">
+						<img src="https://www.iconshock.com/image/Vista/General/notepad" width="20" height="20" />&nbsp; Plein text file (.txt)
+					</div>
+					<div title="download as html file" onclick="document.getElementById('title').value = document.getElementById('title').value + '\.html'; saveTextAsFile();">
+						<img src="https://www.shareicon.net/data/512x512/2016/05/06/760858_html_512x512.png" width="20" height="20" />&nbsp; HTML file (.html)
+					</div>
+				</div>
+				<div id="edit" style="visibility: hidden;" OnMouseOver="dropMenu('edit');" OnMouseOut="hideDropMenu('edit');">
+					<div title="Copy" OnClick="copyText();">
+						<img src="http://www.urltarget.com/images/icon-symbol-button-document-copy-duplicate.png" width="20" height="20" />&nbsp; Copy content &nbsp; (Ctrl + C)
+					</div>
+					<div title="Find something and replace it" OnClick="document.getElementById('replaceAlert').style.display = 'block';">
+						<img src="https://cdn1.iconfinder.com/data/icons/toolbar-signs/512/sync-512.png" width="20" height="20" />&nbsp; Find and Replace &nbsp; (Ctrl + H)
+					</div>	
+				</div>
+				<div id="format" style="visibility: hidden;" OnMouseOver="dropMenu('format');" OnMouseOut="hideDropMenu('format');">
+					<div title="Change document's background (change the color then click on 'Change background')" OnClick=";">
+						<img src="http://www.freeiconspng.com/uploads/color-icon-png-13.png" width="20" height="20" />&nbsp; Change background 
+						<input type="color" id="bgColor" OnChange="changebg(this.value)">&nbsp; &nbsp;
+					</div>			
+				</div>
+				<div id="equation" style="visibility: hidden;" OnMouseOver="dropMenu('equation');" OnMouseOut="hideDropMenu('equation');">
+					<div title="Sum" OnClick="autoCalculate();">
+						<img src="http://www.pvhc.net/img27/vjkxubzudulzvgetaseh.png" width="20" height="20" />&nbsp; <button class="hidden">Auto calculate</button>
+					</div>
+					<div title="Calculate logarithm" OnClick="autoCalculate();">
+						<b>log</b><button class="hidden">logarithm (log(base, number))</button>
+					</div>
+					<div title="raise a to the power of b" OnClick="power();">
+						<b>a<sup>b</sup></b>&nbsp; <button class="hidden">power (syntax: a^b)</button>
+					</div>
+					<div title="detect if the number is prime" OnClick="detectPrime();">
+						<b>true/false</b>&nbsp; <button class="hidden">detect prime</button>
+					</div>
+				</div>
+				<div id="command_prompt" style="visibility: hidden;" OnMouseOver="dropMenu('command_prompt');" OnMouseOut="hideDropMenu('command_prompt');">
+					<div OnClick="changeAutoReplaceSettings();">
+						<img src="http://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/switch-on-icon.png" id ="status_image" width="20" height="20" /><span title="Enable/disable auto replace" id="changeAutoReplaceStatus">&nbsp; Disable auto replace</span>
+					</div>
+					<div title="Show command prompt" OnClick="showCMD();">
+						<img src="https://png.icons8.com/metro/1600/command-line.png" width="20" height="20" />&nbsp; Show command line
+					</div>
+				</div>
+				<div id="templates" style="visibility: hidden;" OnMouseOver="dropMenu('templates');" OnMouseOut="hideDropMenu('templates');">
+					<div title="convert to HTML" OnClick="convertToHTML();" style="color: gray;">
+						<img src="https://cdn4.iconfinder.com/data/icons/proglyphs-computers-and-development/512/HTML-512.png" width="20" height="20" />&nbsp; Add HTML template
+					</div>
+				</div>
+			</ul>
+			<div class="style_tools" title="Change font family">
+				<!-- font family here -->
+				<select OnChange="changeFamily(this.value)">
+					<option value=""></option>
+					<option value="Agency FB">Agency FB</option>
+					<option value="Arial">Arial</option>
+					<option value="Batang">Batang</option>
+					<option value="Brush Script MT">Brush Script MT</option>
+					<option value="Calibri">Calibri</option>
+					<option value="Cambria">Cambria</option>
+					<option value="Comic Sans MS">Comic Sans MS</option>
+					<option value="Cooper Black">Cooper Black</option>
+					<option value="Edwardian Script ITC">Edwardian Script ITC</option>
+					<option value="Lucida Console">Lucida Console</option>
+					<option value="Times New Roman">Times New Roman</option>					
+					<option value="Viner Hand ITC">Viner Hand ITC</option>
+					<option value="Wide Latin">Wide Latin</option>
+				</select>
+				<!-- font size here -->
+				<select OnChange="changeSize(this.value)" title="Change font size">
+					<option value=""></option>
+					<option value="8">8</option>
+					<option value="10">10</option>
+					<option value="12">12</option>
+					<option value="14">14</option>
+					<option value="16">16</option>
+					<option value="20">20</option>
+					<option value="26">26</option>
+					<option value="32">32</option>
+					<option value="48">48</option>
+					<option value="72">72</option>
+					<option value="100">100</option>
+					<option value="150">150</option>
+					<option value="200">200</option>
+				</select>
+				&nbsp; &nbsp; &nbsp; &nbsp;
+				<!-- font color here -->
+				A<input title="change color" type="color" id="styleColor" OnChange="changeColor(this.value);" />
+				&nbsp; &nbsp; &nbsp; &nbsp;
+				<!-- font style here -->
+				<div class="font_style" id="bold" OnClick="styleBold();" title="Bold">
+					<b>B</b>
+				</div>
+				<div class="font_style" id="italic" OnClick="styleItalic();" title="Italic">
+					<i>I</i>
+				</div>
+				<div class="font_style" id="underline" OnClick="styleUnderline();" title="Underline">
+					<u>U</u>
+				</div>
+				<div class="font_style" id="strike" OnClick="styleStrike();" title="Strikethrough">
+					<s>abc</s>
+				</div>
+				&nbsp; &nbsp; &nbsp; &nbsp;
+				<!-- text align here -->
+				<img title="Align right" src="https://www.shareicon.net/data/512x512/2015/12/06/683346_text_512x512.png" width="20" height="20" OnClick="changeAlign('left');" style="transform: scaleX(-1);"/>
+				<img title="Align center" src="https://image.flaticon.com/icons/svg/54/54258.svg" width="20" height="20" OnClick="changeAlign('center');" />
+				<img title="Align left" src="https://www.shareicon.net/data/512x512/2015/12/06/683346_text_512x512.png" width="20" height="20" OnClick="changeAlign('right');" />
+				<img title="Justify" src="http://icons.iconarchive.com/icons/icons8/ios7/512/Editing-Align-Justify-icon.png" width="20" height="20" OnClick="changeAlign('justify');" />
+			</div>
+		</div>
+		<div class="document">
+			<textarea id="text" OnKeyUp="countWords(); replaceAll('text');"></textarea>
+		</div>
+		<div id="command" class="no-print">
+			<textarea id="cmd" OnClick="this.value = '';" placeholder="Enter command here ..."></textarea>
+		</div>
+		<div class="doc_info no-print">
+			<div id="words"></div>
+			&nbsp; &nbsp; 
+			<div id="char"></div>
+			&nbsp; &nbsp; 
+			<div id="par"></div>
+		</div>
+		<div id="replaceAlert">
+			<div id="title_bar">
+				<div>
+					Find and replace
+				</div>
+				<div id="close_title_bar" OnClick="document.getElementById('replaceAlert').style.display = 'none';">
+					X
+				</div>
+			</div>
+			<div id="alert_body">
+				<table>
+					<tr>
+						<td>Find next :</td>
+						<td><input type="text" id="input_find" placeholder="What to find ..." OnKeyUp="replaceAll('input_find');"/></td>
+					</tr>
+					<tr>
+						<td style="color: white;">Space</td>
+					</tr>
+					<tr>
+						<td>Replace with :</td>
+						<td><input type="text" id="input_replace" placeholder="Replace with ..." OnKeyUp="replaceAll('input_replace');" /></td>
+					</tr>
+				</table>
+				<br />
+				<b><span id="result"></span></b>
+				<br />
+				<input type="button" value="Replace" OnClick="findReplace();" />
+			</div>
+		</div>
+	</body>
+</html>

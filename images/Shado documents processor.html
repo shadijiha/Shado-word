@@ -1,0 +1,320 @@
+
+<!-- saved from url=(0054)file:///D:/App%20Data/XAMPP/htdocs/HTML/word/word.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Shado documents processor</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="./Shado documents processor_files/shado_JS_framework.js.download"></script>
+<link rel="icon" type="image/ico" href="file:///D:/App%20Data/XAMPP/htdocs/HTML/word/Shado.ico">
+<link rel="stylesheet" type="text/css" href="./Shado documents processor_files/word.css">
+<link rel="stylesheet" type="text/css" href="./Shado documents processor_files/switch.css">
+<style type="text/css" media="print">
+.no-print {
+	display: none;
+}
+.document	{
+	border: 0;
+	margin: 0;
+}
+</style>
+<script language="JavaScript" src="./Shado documents processor_files/word.js.download"></script>
+	</head>
+	<body>
+		<div class="toolbar no-print">
+			<div>
+				<input title="document&#39;s title" type="text" id="title" value="doc1" onblur="document.querySelector(&#39;title&#39;).innerHTML = this.value;">
+			</div>
+			<div class="logo">
+				<span style="color: rgb(34,177,76);">Sh</span><span style="color: rgb(255,242,0);">ad</span><span style="color: rgb(34,177,76);">o</span><span style="color: rgb(255,242,0);">.com</span>
+			</div>
+			<ul class="menu">
+				<li onmouseover="dropMenu(&#39;file&#39;);" onmouseout="hideDropMenu(&#39;file&#39;);">File</li>
+				<li onmouseover="dropMenu(&#39;edit&#39;);" onmouseout="hideDropMenu(&#39;edit&#39;);">Edit</li>
+				<li onmouseover="dropMenu(&#39;format&#39;);" onmouseout="hideDropMenu(&#39;format&#39;);">Format</li>
+				<li onmouseover="dropMenu(&#39;equation&#39;);" onmouseout="hideDropMenu(&#39;equation&#39;);">Equation</li>
+				<li onmouseover="dropMenu(&#39;command_prompt&#39;);" onmouseout="hideDropMenu(&#39;command_prompt&#39;);">Command</li>
+				<li onmouseover="dropMenu(&#39;templates&#39;);" onmouseout="hideDropMenu(&#39;templates&#39;);">Templates</li>
+				<div id="file" style="visibility: hidden;" onmouseover="dropMenu(&#39;file&#39;);" onmouseout="hideDropMenu(&#39;file&#39;);">
+					<div title="New document" onclick="window.close(); window.open(&#39;word.html&#39;)">
+						<img src="./Shado documents processor_files/new.png" width="20" height="20">&nbsp; New &nbsp; &nbsp; (Ctrl + N)
+					</div>
+					<div title="Save current changes" style="color: lightgray;">
+						<img src="./Shado documents processor_files/save.png" width="20" height="20">&nbsp; Save &nbsp; &nbsp;(Ctrl + S)
+					</div>
+					<div title="Download current document" id="download" onmouseover="dropMenu(&#39;download_side_menu&#39;);" onmouseout="hideDropMenu(&#39;download_side_menu&#39;);">
+						<img src="./Shado documents processor_files/export.png" width="20" height="20">&nbsp; Export as... &gt;
+					</div>
+					<div title="Import file (choose file then click &#39;Import&#39;)">
+						<img src="./Shado documents processor_files/import.png" width="20" height="20"> &nbsp; Import &nbsp; <input type="file" id="fileToLoad" onchange="loadFileAsText()">
+					</div>
+					<div title="Print this document" onclick="window.print();">
+						<img src="./Shado documents processor_files/print.png" width="20" height="20"> &nbsp; Print &nbsp; &nbsp;(Ctrl + P)
+					</div>
+					<div title="Change app settings" onclick="document.getElementById(&#39;settings&#39;).style.display = &#39;block&#39;;">
+						<img src="./Shado documents processor_files/settings.png" width="20" height="20"> &nbsp; Settings &nbsp; &nbsp;
+					</div>
+				</div>
+				<div id="download_side_menu" onmouseover="dropMenu(&#39;file&#39;); dropMenu(&#39;download_side_menu&#39;);" onmouseout="hideDropMenu(&#39;download_side_menu&#39;);" style="visibility: hidden;">
+					<div title="download as PDF" style="color: lightgray;">
+						<img src="./Shado documents processor_files/pdf.png" width="20" height="20"> &nbsp; Adobe file reader (.pdf)
+					</div>
+					<div title="download as docx" style="color: lightgray;">
+						<img src="./Shado documents processor_files/word.png" width="20" height="20">&nbsp; Microsoft Office Word (2007-2016) (.docx)
+					</div>
+					<div title="download as txt" onclick="saveTextAsFile()">
+						<img src="./Shado documents processor_files/saved_resource" width="20" height="20">&nbsp; Plein text file (.txt)
+					</div>
+					<div title="download as html file" onclick="document.getElementById(&#39;title&#39;).value = document.getElementById(&#39;title&#39;).value + &#39;\.html&#39;; saveTextAsFile();">
+						<img src="./Shado documents processor_files/html.png" width="20" height="20">&nbsp; HTML file (.html)
+					</div>
+				</div>
+				<div id="edit" style="visibility: hidden;" onmouseover="dropMenu(&#39;edit&#39;);" onmouseout="hideDropMenu(&#39;edit&#39;);">
+					<div title="Copy" onclick="copyText();">
+						<img src="./Shado documents processor_files/copy.png" width="20" height="20">&nbsp; Copy content &nbsp; (Ctrl + C)
+					</div>
+					<div title="Find something and replace it" onclick="document.getElementById(&#39;replaceAlert&#39;).style.display = &#39;block&#39;;">
+						<img src="./Shado documents processor_files/find &amp; replace.png" width="20" height="20">&nbsp; Find and Replace &nbsp; (Ctrl + H)
+					</div>
+				</div>
+				<div id="format" style="visibility: hidden;" onmouseover="dropMenu(&#39;format&#39;);" onmouseout="hideDropMenu(&#39;format&#39;);">
+					<div title="Change document&#39;s background (change the color then click on &#39;Change background&#39;)" onclick=";">
+						<img src="./Shado documents processor_files/colors.png" width="20" height="20">&nbsp; Change background
+						<input type="color" id="bgColor" onchange="changebg(this.value)">&nbsp; &nbsp;
+					</div>
+					<div title="Add an image as a background to your document" onclick=";">
+						<img src="./Shado documents processor_files/photos.png" width="20" height="20">&nbsp;
+						<input type="file" id="fileUpload" onchange="imagebg();">
+					</div>
+				</div>
+				<div id="equation" style="visibility: hidden;" onmouseover="dropMenu(&#39;equation&#39;);" onmouseout="hideDropMenu(&#39;equation&#39;);">
+					<div title="Sum" onclick="autoCalculate();">
+						<img src="./Shado documents processor_files/calculator.png" width="20" height="20">&nbsp; <button class="hidden">Auto calculate</button>
+					</div>
+					<div title="Calculate logarithm" onclick="autoCalculate();">
+						<b>log</b><button class="hidden">logarithm (log(base, number))</button>
+					</div>
+					<div title="raise a to the power of b" onclick="power();">
+						<b>a<sup>b</sup></b>&nbsp; <button class="hidden">power (syntax: a^b)</button>
+					</div>
+					<div title="detect if the number is prime" onclick="detectPrime();">
+						<b>true/false</b>&nbsp; <button class="hidden">detect prime</button>
+					</div>
+				</div>
+				<div id="command_prompt" style="visibility: hidden;" onmouseover="dropMenu(&#39;command_prompt&#39;);" onmouseout="hideDropMenu(&#39;command_prompt&#39;);">
+					<div onclick="changeAutoReplaceSettings();">
+						<img src="./Shado documents processor_files/switch-on.png" id="status_image" width="20" height="20"><span title="Enable/disable auto replace" id="changeAutoReplaceStatus">&nbsp; Disable auto replace</span>
+					</div>
+					<div title="Show command prompt" onclick="showCMD();">
+						<img src="./Shado documents processor_files/cmd.png" width="20" height="20">&nbsp; Show command line
+					</div>
+				</div>
+				<div id="templates" style="visibility: hidden;" onmouseover="dropMenu(&#39;templates&#39;);" onmouseout="hideDropMenu(&#39;templates&#39;);">
+					<div title="convert to HTML" onclick="convertToHTML();">
+						<img src="./Shado documents processor_files/tags.png" width="20" height="20">&nbsp; Add HTML template
+					</div>
+				</div>
+			</ul>
+			<div class="style_tools" title="Change font family">
+				<!-- font family here -->
+				<select onchange="changeFamily(this.value)">
+					<option value=""></option>
+					<option value="Agency FB">Agency FB</option>
+					<option value="Arial">Arial</option>
+					<option value="Batang">Batang</option>
+					<option value="Brush Script MT">Brush Script MT</option>
+					<option value="Calibri">Calibri</option>
+					<option value="Cambria">Cambria</option>
+					<option value="Comic Sans MS">Comic Sans MS</option>
+					<option value="Cooper Black">Cooper Black</option>
+					<option value="Edwardian Script ITC">Edwardian Script ITC</option>
+					<option value="Lucida Console">Lucida Console</option>
+					<option value="Times New Roman">Times New Roman</option>
+					<option value="Viner Hand ITC">Viner Hand ITC</option>
+					<option value="Wide Latin">Wide Latin</option>
+				</select>
+				<!-- font size here -->
+				<select onchange="changeSize(this.value)" title="Change font size">
+					<option value=""></option>
+					<option value="8">8</option>
+					<option value="10">10</option>
+					<option value="12">12</option>
+					<option value="14">14</option>
+					<option value="16">16</option>
+					<option value="20">20</option>
+					<option value="26">26</option>
+					<option value="32">32</option>
+					<option value="48">48</option>
+					<option value="72">72</option>
+					<option value="100">100</option>
+					<option value="150">150</option>
+					<option value="200">200</option>
+				</select>
+				&nbsp; &nbsp; &nbsp; &nbsp;
+				<!-- font color here -->
+				A<input title="change color" type="color" id="styleColor" onchange="changeColor(this.value);">
+				&nbsp; &nbsp; &nbsp; &nbsp;
+				<!-- font style here -->
+				<div class="font_style" id="bold" onclick="styleBold();" title="Bold">
+					<b>B</b>
+				</div>
+				<div class="font_style" id="italic" onclick="styleItalic();" title="Italic">
+					<i>I</i>
+				</div>
+				<div class="font_style" id="underline" onclick="styleUnderline();" title="Underline">
+					<u>U</u>
+				</div>
+				<div class="font_style" id="strike" onclick="styleStrike();" title="Strikethrough">
+					<s>abc</s>
+				</div>
+				&nbsp; &nbsp; &nbsp; &nbsp;
+				<!-- text align here -->
+				<img title="Align right" src="./Shado documents processor_files/right.png" width="20" height="20" onclick="changeAlign(&#39;left&#39;);" style="transform: scaleX(-1);">
+				<img title="Align center" src="./Shado documents processor_files/center.svg" width="20" height="20" onclick="changeAlign(&#39;center&#39;);">
+				<img title="Align left" src="./Shado documents processor_files/right.png" width="20" height="20" onclick="changeAlign(&#39;right&#39;);">
+				<img title="Justify" src="./Shado documents processor_files/justify.png" width="20" height="20" onclick="changeAlign(&#39;justify&#39;);">
+			</div>
+		</div>
+		<center>
+			<div class="document" id="document">
+				<textarea id="text" onkeyup="countWords(); replaceAll(&#39;text&#39;);" style="font-size: 48px;"></textarea>
+			</div>
+		</center>
+		<div id="command" class="no-print">
+			<textarea id="cmd" onclick="this.value = &#39;&#39;;" placeholder="Enter command here ..."></textarea>
+		</div>
+		<div class="doc_info no-print">
+			<div id="words"><b>1</b> words</div>
+			&nbsp; &nbsp;
+			<div id="char"><b>3</b> characters</div>
+			&nbsp; &nbsp;
+			<div id="par"><b>1</b> lines</div>
+			<div id="zoom_div">
+				Zoom: <!-- <input type="text" id="zoom" OnChange="zoom(this.value);" placeholder="%" /> -->
+				<select id="zoom" onchange="zoom(this.value);">
+					<option value=""></option>
+					<option value="35">35%</option>
+					<option value="50">50%</option>
+					<option value="100">100%</option>
+					<option value="110">110%</option>
+					<option value="130">130%</option>
+					<option value="150">150%</option>
+					<option value="200">200%</option>
+					<option value="230">230%</option>
+					<option value="250">250%</option>
+					<option value="300">300%</option>
+				</select>
+			</div>
+		</div>
+		<div id="replaceAlert">
+			<div id="title_bar" onmousedown="changePosition();">
+				<div>
+					Find and replace
+				</div>
+				<div id="close_title_bar" onclick="document.getElementById(&#39;replaceAlert&#39;).style.display = &#39;none&#39;;">
+					X
+				</div>
+			</div>
+			<div id="alert_body">
+				<table>
+					<tbody><tr>
+						<td>Find next :</td>
+						<td><input type="text" id="input_find" placeholder="What to find ..." onkeyup="replaceAll(&#39;input_find&#39;);"></td>
+					</tr>
+					<tr>
+						<td style="color: white;">Space</td>
+					</tr>
+					<tr>
+						<td>Replace with :</td>
+						<td><input type="text" id="input_replace" placeholder="Replace with ..." onkeyup="replaceAll(&#39;input_replace&#39;);"></td>
+					</tr>
+				</tbody></table>
+				<br>
+				<img src="./Shado documents processor_files/switch.png" onclick="reverse();" title="Reverse" id="reverser">
+				<b><span id="result"></span></b>
+				<br>
+				<input type="button" value="Replace" onclick="findReplace();">
+			</div>
+		</div>
+		<div id="settings">
+			<div id="title_bar_settings"> <!--OnMouseDown="changePosition();"> -->
+				<div>
+					Shado Word Settings
+				</div>
+				<div id="close_title_bar_settings" onclick="document.getElementById(&#39;settings&#39;).style.display = &#39;none&#39;;">
+					X
+				</div>
+			</div>
+			<div id="settings_body">
+				<div id="tab">
+					<div onclick="getElement(&#39;general_settings&#39;).style.display = &#39;block&#39;; getElement(&#39;page_settings&#39;).style.display = &#39;none&#39;; getElement(&#39;equation_settings&#39;).style.display = &#39;none&#39;;">General</div>
+					<div onclick="getElement(&#39;general_settings&#39;).style.display = &#39;none&#39;; getElement(&#39;page_settings&#39;).style.display = &#39;block&#39;; getElement(&#39;equation_settings&#39;).style.display = &#39;none&#39;;">Page</div>
+					<div onclick="getElement(&#39;general_settings&#39;).style.display = &#39;none&#39;; getElement(&#39;page_settings&#39;).style.display = &#39;none&#39;; getElement(&#39;equation_settings&#39;).style.display = &#39;block&#39;;">Equation</div>
+				</div>
+				<div id="core" style="display: inline">
+					<div id="general_settings">
+						<fieldset>
+							<legend><h3>General settings</h3></legend>
+							<table>
+								<tbody><tr>
+									<td>Autp replace:</td>
+									<td>
+										<div class="onoffswitch">
+											<input onclick="changeAutoReplaceSettings();" type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked="">
+											<label class="onoffswitch-label" for="myonoffswitch"></label>
+										</div>
+									</td>
+								</tr>
+							</tbody></table>
+						</fieldset>
+					</div>
+					<div id="page_settings" style="display: none;">
+						<fieldset>
+							<legend><h3>Page settings</h3></legend>
+							<table>
+								<tbody><tr>
+									<td>Page margins:</td>
+									<td>
+										<input name="margins" type="radio" onclick="changeMargins(1.27, 1.27);"> Narrow &nbsp; &nbsp;
+										<input name="margins" type="radio" onclick="changeMargins(2.54, 3.18);" checked=""> Normal &nbsp; &nbsp;
+										<input name="margins" type="radio" onclick="changeMargins(2.54, 5.08);"> Wide
+									</td>
+								</tr>
+								<tr>
+									<td>Layout:</td>
+									<td>
+										<input name="layout" type="radio" onclick="changeLayout(8.5, 11);" checked=""> Portrait &nbsp; &nbsp;
+										<input name="layout" type="radio" onclick="changeLayout(11, 8.5);"> Landscape &nbsp; &nbsp;
+									</td>
+								</tr>
+							</tbody></table>
+						</fieldset>
+					</div>
+					<div id="equation_settings" style="display: none;">
+						<fieldset>
+							<legend><h3>Equation settings</h3></legend>
+							<table>
+								<tbody><tr>
+									<td>Auto calculate round digits</td>
+									<td><input type="number" value="" onchange="chnageRoundingValue(this.value);"></td>
+								</tr>
+								<tr>
+									<td>Auto calculate hot key</td>
+									<td><input type="text" id="mykey" style="width: 50;" value="Alt" onclick="this.value = &#39;&#39;;" disabled=""></td>
+<!--<script>
+var x = getElement("mykey");
+x.addEventListener("keyup", function(event)	{
+	keyBind = event.keyCode;
+});
+console.log(keyBind);
+</script>-->
+								</tr>
+							</tbody></table>
+						</fieldset>
+					</div>
+				</div>
+				<br>
+				<input type="button" value="Apply" onclick="document.getElementById(&#39;settings&#39;).style.display = &#39;none&#39;;">
+			</div>
+		</div>
+	
+
+</body></html>

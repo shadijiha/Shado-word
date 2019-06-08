@@ -1,0 +1,505 @@
+body	{
+	margin: 0;
+	background-color: rgb(240,240,240);
+}
+.toolbar	{
+	width: 100%;
+	height: 200px;
+	background-color: rgba(181,230,29,.5);
+}
+.document	{
+	width: 8.5in;
+	height: 11in;
+	background-color: white;
+	border: solid 3px lightgray;
+	margin-top: 30px;
+}
+.logo	{
+	position: absolute;
+	z-index: 0;
+	font-size: 1in;
+	left: 25px;
+	top: 70px;
+	font-family: "Arial";
+	font-weight: bold;
+}
+#text	{
+	width: 100%;
+	height: 100%;
+	padding-top: 2.54cm;
+	padding-bottom: 2.54cm;
+	padding-right: 3.18cm;
+	padding-left: 3.18cm;
+	border: 0;
+	font-family: "Times New Roman";
+	font-size: 14;
+}
+#title	{
+	position: relative;
+	font-size: 20px;
+	padding: 5px;
+	border: 0;
+	left: 30px;
+	top: 5px;
+	border-radius: 10px;
+	padding: 5px;
+}
+.menu li	{
+	display: inline;
+	padding: 5px;
+	font-family: "Arial";
+	position: relative;
+	top: 10px;
+	left: -10px;
+	background-color: rgb(34,177,76);
+	border-radius: 5px;
+	color: white;
+}
+.menu li:hover	{
+	background-color: rgb(255,242,0);
+	color: black;
+	border: solid rgb(255,242,0) 1px;
+	border-radius: 5px;
+	cursor: pointer;
+	font-weight: bold;
+}
+.style_tools	{
+	width: 100%;
+	text-align: center;
+	position: absolute;
+	top: 150px;
+}
+.style_tools select	{
+	font-size: 16;
+	height: 30px;
+}
+#file	{
+	border: solid black 1px;
+	height: auto;
+	width: 355px;
+	background-color: white;
+	position: absolute;
+	top: 80px;
+	left: 30px;
+	border-radius: 5px;
+	z-index: 2;
+	font-size: smaller;
+}
+#file div	{
+	list-style-type: none;
+	height: 15px;
+	width: 335px;
+	cursor: pointer;
+	font-family: "Arial";
+	padding: 10px;
+}
+#file div:hover	{
+	background-color: rgb(34,177,76);
+	color: white;
+}
+#download_side_menu	{
+	border: solid black 1px;
+	height: auto;
+	width: 300px;
+	background-color: white;
+	position: absolute;
+	top: 150;
+	left: 385;
+	border-radius: 5px;
+	z-index: 2;
+	font-size: smaller;
+}
+#download_side_menu div	{
+	list-style-type: none;
+	height: 15px;
+	width: 280px;
+	cursor: pointer;
+	font-family: "Arial";
+	padding: 10px;
+}
+#download_side_menu div:hover	{
+	background-color: rgb(34,177,76);
+	color: white;
+}
+#edit	{
+	border: solid black 1px;
+	height: auto;
+	width: 220px;
+	background-color: white;
+	position: absolute;
+	top: 80;
+	left: 70;
+	border-radius: 5px;
+	z-index: 2;
+	font-size: smaller;
+}
+#edit div	{
+	list-style-type: none;
+	height: 15px;
+	width: 200px;
+	cursor: pointer;
+	font-family: "Arial";
+	padding: 10px;
+}
+#edit div:hover	{
+	background-color: rgb(34,177,76);
+	color: white;
+}
+#format	{
+	border: solid black 1px;
+	height: auto;
+	width: 310px;
+	background-color: white;
+	position: absolute;
+	top: 80;
+	left: 110;
+	border-radius: 5px;
+	z-index: 2;
+	font-size: smaller;
+}
+#format div	{
+	list-style-type: none;
+	height: 20px;
+	width: 290px;
+	cursor: pointer;
+	font-family: "Arial";
+	padding: 10px;
+}
+#format div:hover	{
+	background-color: rgb(34,177,76);
+	color: white;
+}
+#equation	{
+	border: solid black 1px;
+	height: auto;
+	width: 270px;
+	background-color: white;
+	position: absolute;
+	top: 80;
+	left: 175px;
+	border-radius: 5px;
+	z-index: 2;
+	font-size: smaller;
+}
+#equation div	{
+	list-style-type: none;
+	height: 20px;
+	width: 250px;
+	font-family: "Arial";
+	padding: 10px;
+}
+#equation div:hover	{
+	background-color: rgb(34,177,76);
+	color: white;
+}
+.hidden	{
+	background-color: transparent;
+	border: 0;
+	color: inherit;
+	cursor: pointer;
+}
+#command_prompt	{
+	border: solid black 1px;
+	height: auto;
+	width: 190px;
+	background-color: white;
+	position: absolute;
+	top: 80;
+	left: 253;
+	border-radius: 5px;
+	z-index: 2;
+	font-size: smaller;
+}
+#command_prompt div	{
+	list-style-type: none;
+	height: 20px;
+	width: 170px;
+	cursor: pointer;
+	font-family: "Arial";
+	padding: 10px;
+}
+#command_prompt div:hover	{
+	background-color: rgb(34,177,76);
+	color: white;
+}
+#templates	{
+	border: solid black 1px;
+	height: auto;
+	width: 170px;
+	background-color: white;
+	position: absolute;
+	top: 80;
+	left: 340;
+	border-radius: 5px;
+	z-index: 2;
+	font-size: smaller;
+}
+#templates div	{
+	list-style-type: none;
+	height: 20px;
+	width: 150px;
+	cursor: pointer;
+	font-family: "Arial";
+	padding: 10px;
+}
+#templates div:hover	{
+	background-color: rgb(34,177,76);
+	color: white;
+}
+.font_style	{
+	display: inline;
+	cursor: pointer;
+	padding: 10px;
+}
+#styleColor	{
+	border: 0;
+	background-color: transparent;
+	width: 20px;
+}
+#bgColor	{
+	border: 0;
+	background-color: transparent;
+	width: 20px;
+}
+.doc_info	{
+	background-color: rgba(181,230,29,.5);
+	height: 20px;
+	position: fixed;
+	margin-top: -19%;
+	font-family: "Arial";
+	padding: 15px;
+	width: 100%;
+	font-size: small;
+}
+
+.doc_info div	{
+	background-color: white;
+	display: inline;
+	padding: 5px;
+	border-radius: 5px;
+}
+#command	{
+	width: 200px;
+	height: 600px;
+	background-color: black;
+	position: fixed;
+	margin-top: -935px;
+	margin-left: 1700px;
+	visibility: hidden;
+	border-radius: 10px;
+}
+#cmd	{
+	width: 100%;
+	height:100%;
+	color: white;
+	background-color: transparent;
+	font-family: "Lucida Console";
+	padding: 10px;
+	border: 0;
+}
+
+/* FIND & REPLACE ALERT BOX */
+#replaceAlert	{
+	width: 500px;
+	height: 225px;
+	background-color: white;
+	border: solid 3px;
+	border-color: rgb(34,177,76);
+	border-radius: 10px;
+	position: fixed;
+	margin-top: -900px;
+	margin-left: 672px;
+	display: none;
+	z-index: 10;
+}
+#title_bar	{
+	background-color: rgb(34,177,76);
+	padding: 5px;
+	font-family: "Arial";
+	color: white;
+	font-weight: bold;
+	cursor: alias;
+}
+#title_bar div	{
+	display: inline;
+}
+#close_title_bar	{
+	background-color: red;
+	color: white;
+	font-family: "Arial";
+	font-weight: bold;
+	padding: 7px;
+	height: 100%;
+	position: relative;
+	left: 340px;
+	border-top-right-radius: 5px;
+	cursor: pointer;
+}
+#alert_body	{
+	padding: 20px;
+	font-family: "Arial";
+}
+#alert_body input[type=text]	{
+	width: 230px;
+    border-radius: 5px;
+    height: 30px;
+    border-width: 1px;
+    padding: 3px;
+}
+#alert_body input[type=button]	{
+    border-radius: 5px;
+	border: 0;
+	font-size: small;
+	color: white;
+	font-weight: bold;
+	background: rgb(34,177,76);
+    height: 30px;
+    border-width: 1px;
+    padding: 5px;
+	-webkit-transition: background .5s;
+}
+#alert_body input[type=button]:active	{
+	background: rgb(4,147,46);
+}
+
+/* ZOOM BOX */
+#zoom_div	{
+	position: absolute;
+	left: 1800;
+	top: 2;
+	background-color: transparent;
+}
+#zoom	{
+	height: 30;
+	border-radius: 5px;
+	font-weight: bold;
+	width: 50;
+}
+#reverser	{
+	width: 30;
+	height: 30;
+	position: absolute;
+	cursor: pointer;
+	left: 370;
+	top: 80;
+}
+
+/* SETTINGS ALERT BOX */
+#settings	{
+	width: 600px;
+	height: 300px;
+	background-color: white;
+	border: solid 3px;
+	border-color: rgb(34,177,76);
+	border-radius: 10px;
+	position: fixed;
+	margin-top: -970;
+	margin-left: 672px;
+	-webkit-transition: display 1s;
+	display: none;
+	z-index: 10;
+}
+#title_bar_settings	{
+	background-color: rgb(34,177,76);
+	padding: 5px;
+	font-family: "Arial";
+	color: white;
+	font-weight: bold;
+	cursor: alias;
+}
+#title_bar_settings div	{
+	display: inline;
+}
+#close_title_bar_settings	{
+	background-color: red;
+	color: white;
+	font-family: "Arial";
+	font-weight: bold;
+	padding: 7px;
+	height: 100%;
+	position: relative;
+	left: 407px;
+	border-top-right-radius: 5px;
+	cursor: pointer;
+}
+#settings_body	{
+	font-family: "Arial";
+}
+#settings_body input[type=text]	{
+	width: 230px;
+    border-radius: 5px;
+    height: 30px;
+    border-width: 1px;
+    padding: 3px;
+}
+#settings_body input[type=number]	{
+	width: 50;
+	border-radius: 5px;
+	height: 30px;
+	border-width: 1px;
+	padding: 3px;
+	color: rgb(34,177,76);
+	font-weight: bold;
+}
+#settings_body input[type=button]	{
+    border-radius: 5px;
+	border: 0;
+	font-size: small;
+	color: white;
+	font-weight: bold;
+	background: rgb(34,177,76);
+    height: 30px;
+    border-width: 1px;
+	padding: 5px;
+	-webkit-transition: background .5s;
+	position: relative;
+	left: 550;
+	top: 50;
+}
+#settings_body input[type=button]:active	{
+	background: rgb(4,147,46);
+}
+#tab	{
+	background: rgb(34,177,76);
+	padding: 10px;
+	height: 150;
+	border-bottom-right-radius: 10px;
+	width: 100px;
+	color: white;
+	font-weight: bold;
+}
+#tab div	{
+	padding: 5px;
+	-webkit-transition: padding 1s;
+	border-bottom: solid white 1px;
+}
+#tab div:hover	{
+	padding-left: 20px;
+	cursor: pointer;
+}
+#core	{
+	position: absolute;
+	left: 130;
+	top: 40;
+}
+#core table	{
+	font-size: smaller;
+}
+
+#core fieldset	{
+	border-radius: 10px;
+	width: 420;
+	height: 220;
+	margin-top: -20;
+}
+#searchWindow	{
+	position: absolute;
+	left: 50;
+	top: 230;
+	width: 9in;
+	height: 11in;
+	display: none;
+}
+.rnd	{
+	z-index: 10;
+}
